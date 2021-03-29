@@ -11,5 +11,9 @@ public abstract class BaseDao<T extends PagingAndSortingRepository> {
         return (E) getRepository().save(entity);
     }
 
+    public <E extends BaseEntity> void delete(E entity) {
+        getRepository().delete(entity);
+    }
+
     protected abstract T getRepository();
 }

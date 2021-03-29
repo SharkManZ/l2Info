@@ -16,7 +16,7 @@ public class WeaponEntity extends BaseEntity {
     @Column(name = "L2_ID")
     @SequenceGenerator(name = "WeaponGenerator", sequenceName = "L2_WEAPON_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WeaponGenerator")
-    private Long id;
+    public Long id;
 
     @Column(name = "L2_NAME", nullable = false)
     public String name;
@@ -34,4 +34,9 @@ public class WeaponEntity extends BaseEntity {
 
     @Column(name = "L2_M_ATK", nullable = false)
     public Integer mAtk;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 }

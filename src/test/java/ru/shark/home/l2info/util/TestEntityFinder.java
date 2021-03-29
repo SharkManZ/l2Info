@@ -12,9 +12,8 @@ public class TestEntityFinder {
     private EntityManager em;
 
     public WeaponEntity findWeapon(String name) {
-        return (WeaponEntity) em.createQuery("select w from WeaponEntity w where lower(w.name ) = :name")
-                .setParameter("name", name.toLowerCase())
-                .getResultList()
-                .get(0);
+        return (WeaponEntity) em.createQuery("select w from WeaponEntity w where lower(w.name ) = lower(:name)")
+                .setParameter("name", name)
+                .getSingleResult();
     }
 }

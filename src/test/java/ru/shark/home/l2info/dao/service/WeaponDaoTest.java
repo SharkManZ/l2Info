@@ -8,10 +8,11 @@ import ru.shark.home.l2info.dao.common.PageableList;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.enums.Grade;
 import ru.shark.home.l2info.enums.WeaponType;
+import ru.shark.home.l2info.util.DaoServiceTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WeaponDaoTest extends BaseDaoTest {
+public class WeaponDaoTest extends DaoServiceTest {
 
     @Autowired
     private WeaponDao weaponDao;
@@ -31,7 +32,7 @@ public class WeaponDaoTest extends BaseDaoTest {
     }
 
     @Test
-    public void save() {
+    public void saveWithCreate() {
         // GIVEN
         WeaponEntity entity = prepareNewEntity();
 
@@ -40,12 +41,31 @@ public class WeaponDaoTest extends BaseDaoTest {
 
         // THEN
         assertNotNull(saved);
-        assertNotNull(saved.id);
-        assertEquals(entity.name, saved.name);
-        assertEquals(entity.type, saved.type);
-        assertEquals(entity.grade, saved.grade);
-        assertEquals(entity.pAtk, saved.pAtk);
-        assertEquals(entity.mAtk, saved.mAtk);
+        assertNotNull(saved.getId());
+        assertEquals(entity.getName(), saved.getName());
+        assertEquals(entity.getType(), saved.getType());
+        assertEquals(entity.getGrade(), saved.getGrade());
+        assertEquals(entity.getpAtk(), saved.getpAtk());
+        assertEquals(entity.getmAtk(), saved.getmAtk());
+    }
+
+    @Test
+    public void saveWithCUpdate() {
+        // GIVEN
+        WeaponEntity entity = prepareNewEntity();
+        entity.setId(entityFinder.findWeapon("Bow of Peril").getId());
+
+        // WHEN
+        WeaponEntity saved = weaponDao.save(entity);
+
+        // THEN
+        assertNotNull(saved);
+        assertEquals(entity.getId(), saved.getId());
+        assertEquals(entity.getName(), saved.getName());
+        assertEquals(entity.getType(), saved.getType());
+        assertEquals(entity.getGrade(), saved.getGrade());
+        assertEquals(entity.getpAtk(), saved.getpAtk());
+        assertEquals(entity.getmAtk(), saved.getmAtk());
     }
 
     @Test
@@ -57,16 +77,16 @@ public class WeaponDaoTest extends BaseDaoTest {
         weaponDao.delete(entity);
 
         // THEN
-        isDeleted(entity);
+        assertTrue(isDeleted(entity));
     }
 
     private WeaponEntity prepareNewEntity() {
         WeaponEntity entity = new WeaponEntity();
-        entity.name = "Soul Bow";
-        entity.type = WeaponType.BOW;
-        entity.grade = Grade.A;
-        entity.pAtk = 500;
-        entity.mAtk = 150;
+        entity.setName("Soul Bow");
+        entity.setType(WeaponType.BOW);
+        entity.setGrade(Grade.A);
+        entity.setpAtk(500);
+        entity.setmAtk(150);
 
         return entity;
     }

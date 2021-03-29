@@ -1,19 +1,39 @@
 package ru.shark.home.l2info.dao.service;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.shark.home.l2info.dao.entity.BaseEntity;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 @Transactional
-public abstract class BaseDao<T extends PagingAndSortingRepository> {
-    public <E extends BaseEntity> E save(E entity) {
-        return (E) getRepository().save(entity);
+public abstract class BaseDao<E extends BaseEntity> {
+
+    private EntityManager em;
+    private final Class<E> entityClass;
+
+    protected BaseDao(Class<E> entityClass) {
+        this.entityClass = entityClass;
     }
 
-    public <E extends BaseEntity> void delete(E entity) {
-        getRepository().delete(entity);
+    public E save(E entity) {
+        return (E) em.merge(entity);
     }
 
-    protected abstract T getRepository();
+    public void delete(E entity) {
+        em.remove(entity);
+    }
+
+    public E findById(Long id) {
+        return em.find(entityClass, id);
+    }
+
+    public Class<E> getEntityClass() {
+        return entityClass;
+    }
+
+    @Autowired
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
 }

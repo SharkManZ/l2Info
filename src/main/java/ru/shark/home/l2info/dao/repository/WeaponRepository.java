@@ -1,4 +1,4 @@
-package ru.shark.home.l2info.repository;
+package ru.shark.home.l2info.dao.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

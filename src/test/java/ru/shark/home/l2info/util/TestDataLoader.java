@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
-import ru.shark.home.l2info.repository.WeaponRepository;
+import ru.shark.home.l2info.dao.repository.WeaponRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

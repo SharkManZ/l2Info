@@ -1,5 +1,6 @@
 package ru.shark.home.l2info.dao.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,10 @@ import ru.shark.home.l2info.enums.Grade;
 import ru.shark.home.l2info.enums.WeaponType;
 import ru.shark.home.l2info.util.DaoServiceTest;
 
+import java.text.MessageFormat;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static ru.shark.home.l2info.common.ErrorConstants.ENTITY_ALREADY_EXISTS;
 
 public class WeaponDaoTest extends DaoServiceTest {
 
@@ -50,7 +54,7 @@ public class WeaponDaoTest extends DaoServiceTest {
     }
 
     @Test
-    public void saveWithCUpdate() {
+    public void saveWithUpdate() {
         // GIVEN
         WeaponEntity entity = prepareNewEntity();
         entity.setId(entityFinder.findWeapon("Bow of Peril").getId());
@@ -66,6 +70,22 @@ public class WeaponDaoTest extends DaoServiceTest {
         assertEquals(entity.getGrade(), saved.getGrade());
         assertEquals(entity.getpAtk(), saved.getpAtk());
         assertEquals(entity.getmAtk(), saved.getmAtk());
+    }
+
+    @Test()
+    public void saveWithAlreadyExistsByName() {
+        // GIVEN
+        WeaponEntity entity = prepareNewEntity();
+        entity.setId(entityFinder.findWeapon("Bow of Peril").getId());
+        entity.setName("Strengthened Long Bow");
+        String expectedMsg = MessageFormat.format(ENTITY_ALREADY_EXISTS,
+                WeaponEntity.getDescription(), entity.getName());
+
+        // WHEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> weaponDao.save(entity));
+
+        // THEN
+        Assertions.assertEquals(expectedMsg, exception.getMessage());
     }
 
     @Test

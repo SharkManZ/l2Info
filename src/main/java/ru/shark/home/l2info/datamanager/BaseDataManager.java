@@ -37,6 +37,14 @@ public abstract class BaseDataManager <E extends BaseEntity, D extends Dto> {
         return converterUtil.dtoToEntity(dto, dao.getEntityClass());
     }
 
+    public BaseDao<E> getDao() {
+        return dao;
+    }
+
+    public ConverterUtil getConverterUtil() {
+        return converterUtil;
+    }
+
     @Autowired
     public void setConverterUtil(ConverterUtil converterUtil) {
         this.converterUtil = converterUtil;

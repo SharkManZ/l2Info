@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Bow of Peril",
+    "type": "BOW",
+    "grade": "B",
+    "pAtk": "400",
+    "mAtk": "99"
+  },
+  {
+    "name": "Strengthened Long Bow",
+    "type": "BOW",
+    "grade": "D",
+    "pAtk": "179",
+    "mAtk": "51"
+  }
+]

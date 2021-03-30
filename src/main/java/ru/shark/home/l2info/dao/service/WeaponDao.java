@@ -8,6 +8,11 @@ import ru.shark.home.l2info.dao.common.PageableList;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.dao.repository.WeaponRepository;
 
+import java.text.MessageFormat;
+
+import static ru.shark.home.l2info.common.ErrorConstants.EMPTY_ENTITY;
+import static ru.shark.home.l2info.common.ErrorConstants.ENTITY_ALREADY_EXISTS;
+
 @Component
 public class WeaponDao extends BaseDao<WeaponEntity> {
     private WeaponRepository weaponRepository;
@@ -20,6 +25,21 @@ public class WeaponDao extends BaseDao<WeaponEntity> {
         Page<WeaponEntity> list = weaponRepository.findAll(pageable);
 
         return new PageableList<>(list.getContent(), list.getTotalElements());
+    }
+
+    @Override
+    public WeaponEntity save(WeaponEntity entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException(MessageFormat.format(EMPTY_ENTITY, WeaponEntity.getDescription()));
+        }
+
+        WeaponEntity byName = weaponRepository.findWeaponByName(entity.getName());
+        if (byName != null && (entity.getId() == null || !entity.getId().equals(byName.getId()))) {
+            throw new IllegalArgumentException(MessageFormat.format(ENTITY_ALREADY_EXISTS,
+                    WeaponEntity.getDescription(), entity.getName()));
+        }
+
+        return super.save(entity);
     }
 
     @Autowired

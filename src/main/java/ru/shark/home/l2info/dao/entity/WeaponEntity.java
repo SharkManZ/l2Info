@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "L2_WEAPON")
 public class WeaponEntity extends BaseEntity {
+    private static final String DESCRIPTION = "Оружие";
 
     /**
      * Уникальный идентификатор записи.
@@ -83,5 +84,9 @@ public class WeaponEntity extends BaseEntity {
 
     public void setmAtk(Integer mAtk) {
         this.mAtk = mAtk;
+    }
+
+    public static String getDescription() {
+        return DESCRIPTION;
     }
 }

@@ -2,6 +2,9 @@ package ru.shark.home.l2info.dao.common;
 
 import java.util.List;
 
+/**
+ * Обертка для пагинированного ответа.
+ */
 public class PageableList<T> {
     private List<T> data;
     private Long totalCount;

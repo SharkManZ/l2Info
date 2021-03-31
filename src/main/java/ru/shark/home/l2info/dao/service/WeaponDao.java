@@ -10,8 +10,7 @@ import ru.shark.home.l2info.dao.repository.WeaponRepository;
 
 import java.text.MessageFormat;
 
-import static ru.shark.home.l2info.common.ErrorConstants.EMPTY_ENTITY;
-import static ru.shark.home.l2info.common.ErrorConstants.ENTITY_ALREADY_EXISTS;
+import static ru.shark.home.l2info.common.ErrorConstants.*;
 
 @Component
 public class WeaponDao extends BaseDao<WeaponEntity> {
@@ -40,6 +39,18 @@ public class WeaponDao extends BaseDao<WeaponEntity> {
         }
 
         return super.save(entity);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        WeaponEntity entity = findById(id);
+
+        if (entity == null) {
+            throw new IllegalArgumentException(MessageFormat.format(ENTITY_NOT_FOUND_BY_ID,
+                    WeaponEntity.getDescription(), id));
+        }
+        
+        super.deleteById(id);
     }
 
     @Autowired

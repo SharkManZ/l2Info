@@ -1,20 +1,19 @@
 package ru.shark.home.l2info.rest;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.services.WeaponService;
 import ru.shark.home.l2info.services.dto.PageRequest;
+import ru.shark.home.l2info.util.BaseEndpointTest;
 
 import javax.ws.rs.core.Response;
 
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class WeaponEndpointTest {
+
+public class WeaponEndpointTest extends BaseEndpointTest {
     private WeaponEndpoint weaponEndpoint;
     private WeaponService weaponService;
 
@@ -39,7 +38,27 @@ public class WeaponEndpointTest {
         Response response = weaponEndpoint.getList(pageRequest);
 
         // THEN
-        Assertions.assertNotNull(response);
-        verify(weaponService, timeout(1)).getList(any(PageRequest.class));
+        checkResponse(response);
+        verify(weaponService, times(1)).getList(any(PageRequest.class));
+    }
+
+    @Test
+    public void save() {
+        // WHEN
+        Response response = weaponEndpoint.save(new WeaponDto());
+
+        // THEN
+        checkResponse(response);
+        verify(weaponService, times(1)).save(any(WeaponDto.class));
+    }
+
+    @Test
+    public void delete() {
+        // WHEN
+        Response response = weaponEndpoint.delete(1L);
+
+        // THEN
+        checkResponse(response);
+        verify(weaponService, times(1)).delete(anyLong());
     }
 }

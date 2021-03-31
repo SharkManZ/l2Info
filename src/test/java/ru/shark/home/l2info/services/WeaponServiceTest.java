@@ -1,23 +1,22 @@
 package ru.shark.home.l2info.services;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.shark.home.l2info.dao.common.PageableList;
 import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.datamanager.WeaponDataManager;
 import ru.shark.home.l2info.services.dto.PageRequest;
+import ru.shark.home.l2info.services.dto.response.BaseResponse;
+import ru.shark.home.l2info.util.BaseServiceTest;
 
 import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class WeaponServiceTest {
+public class WeaponServiceTest extends BaseServiceTest {
     private WeaponService weaponService;
     private WeaponDataManager weaponDataManager;
 
@@ -41,11 +40,32 @@ public class WeaponServiceTest {
         when(weaponDataManager.getWithPagination(any(Pageable.class))).thenReturn(pageList);
 
         // WHEN
-        PageableList<WeaponDto> list = weaponService.getList(request);
+        BaseResponse response = weaponService.getList(request);
 
         // THEN
-        Assertions.assertNotNull(list);
-        Assertions.assertNotNull(list.getData());
-        Assertions.assertNotNull(list.getTotalCount());
+        checkPagingResponse(response);
+        verify(weaponDataManager, times(1)).getWithPagination(any(Pageable.class));
+    }
+
+    @Test
+    public void save() {
+        // GIVEN
+        when(weaponDataManager.save(any(WeaponDto.class))).thenReturn(new WeaponDto());
+        // WHEN
+        BaseResponse response = weaponService.save(new WeaponDto());
+
+        // THEN
+        checkResponseWithBody(response);
+        verify(weaponDataManager, times(1)).save(any(WeaponDto.class));
+    }
+
+    @Test
+    public void delete() {
+        // WHEN
+        BaseResponse response = weaponService.delete(1L);
+
+        // THEN
+        checkResponse(response);
+        verify(weaponDataManager, times(1)).deleteById(anyLong());
     }
 }

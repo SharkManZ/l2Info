@@ -1,6 +1,9 @@
 package ru.shark.home.l2info.enums;
 
-public enum WeaponType {
+/**
+ * Тип оружия.
+ */
+public enum WeaponType implements WithTitleEnum {
     BOW("Лук"),
     SWORD("Меч"),
     BLUNT("Ударное"),
@@ -14,6 +17,7 @@ public enum WeaponType {
         this.title = title;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }

@@ -5,6 +5,9 @@ import ru.shark.home.l2info.enums.WeaponType;
 
 import javax.persistence.*;
 
+/**
+ * Сущность "Оружие".
+ */
 @Entity
 @Table(name = "L2_WEAPON")
 public class WeaponEntity extends BaseEntity {

@@ -6,7 +6,10 @@ import ru.shark.home.l2info.dao.entity.BaseEntity;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-@Transactional
+/**
+ * Базовый класс для сервисов доступа к данным.
+ */
+@Transactional(Transactional.TxType.REQUIRED)
 public abstract class BaseDao<E extends BaseEntity> {
 
     private EntityManager em;
@@ -16,18 +19,45 @@ public abstract class BaseDao<E extends BaseEntity> {
         this.entityClass = entityClass;
     }
 
+    /**
+     * Сохранение сущности.
+     *
+     * @param entity сущность для сохранения
+     * @return сохраненная сущность
+     */
     public E save(E entity) {
         return (E) em.merge(entity);
     }
 
-    public void delete(E entity) {
-        em.remove(entity);
+    /**
+     * Удаление сущности по идентификатору.
+     */
+    public void deleteById(Long id) {
+        em.remove(findById(id));
     }
 
+    /**
+     * Удаление сущности.
+     *
+     * @param entity сущность для удаления
+     */
+    public void delete(E entity) {
+        deleteById(entity.getId());
+    }
+
+    /**
+     * Возвращает сущность по идентификатору
+     *
+     * @param id идентификатор
+     * @return сущность
+     */
     public E findById(Long id) {
         return em.find(entityClass, id);
     }
 
+    /**
+     * Возвращает класс сущности.
+     */
     public Class<E> getEntityClass() {
         return entityClass;
     }

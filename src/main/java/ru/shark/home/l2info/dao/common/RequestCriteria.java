@@ -1,17 +1,13 @@
-package ru.shark.home.l2info.services.dto;
+package ru.shark.home.l2info.dao.common;
 
 import java.util.List;
 
-public class PageRequest {
+public class RequestCriteria {
     private int page;
     private int size;
-    private List<Filter> filters;
+    private List<RequestFilter> filters;
 
-    public PageRequest() {
-        // empty constructor
-    }
-
-    public PageRequest(int page, int size) {
+    public RequestCriteria(int page, int size) {
         this.page = page;
         this.size = size;
     }
@@ -32,11 +28,11 @@ public class PageRequest {
         this.size = size;
     }
 
-    public List<Filter> getFilters() {
+    public List<RequestFilter> getFilters() {
         return filters;
     }
 
-    public void setFilters(List<Filter> filters) {
+    public void setFilters(List<RequestFilter> filters) {
         this.filters = filters;
     }
 }

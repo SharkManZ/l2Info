@@ -2,16 +2,27 @@ package ru.shark.home.l2info.dao.service;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import ru.shark.home.l2info.dao.common.PageableList;
+import ru.shark.home.l2info.dao.common.RequestCriteria;
+import ru.shark.home.l2info.dao.common.RequestFilter;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
+import ru.shark.home.l2info.dao.repository.BaseRepository;
+import ru.shark.home.l2info.dao.repository.WeaponRepository;
+import ru.shark.home.l2info.enums.FilterOperation;
 import ru.shark.home.l2info.enums.Grade;
 import ru.shark.home.l2info.enums.WeaponType;
 import ru.shark.home.l2info.util.DaoServiceTest;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BaseDaoTest extends DaoServiceTest {
 
     private BaseDao baseDao;
+    @Autowired
+    private WeaponRepository weaponRepository;
 
     @BeforeAll
     public void init() {
@@ -82,6 +93,32 @@ public class BaseDaoTest extends DaoServiceTest {
         assertEquals(id, entity.getId());
     }
 
+    @Test
+    public void getWithPagination() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+
+        // WHEN
+        PageableList withPagination = baseDao.getWithPagination(requestCriteria);
+
+        // THEN
+        checkPagingList(withPagination, 2, 2L);
+    }
+
+    @Test
+    public void getWithPaginationWithFilter() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+        requestCriteria.setFilters(Arrays.asList(new RequestFilter("name", FilterOperation.EQ.getValue(),
+                "Bow of Peril")));
+
+        // WHEN
+        PageableList withPagination = baseDao.getWithPagination(requestCriteria);
+
+        // THEN
+        checkPagingList(withPagination, 1, 1L);
+    }
+
     private WeaponEntity prepareEntity(Long id, String name) {
         WeaponEntity weaponEntity = new WeaponEntity();
         weaponEntity.setId(id);
@@ -98,6 +135,11 @@ public class BaseDaoTest extends DaoServiceTest {
 
         protected BaseDaoImpl() {
             super(WeaponEntity.class);
+        }
+
+        @Override
+        public BaseRepository<WeaponEntity> getRepository() {
+            return weaponRepository;
         }
     }
 }

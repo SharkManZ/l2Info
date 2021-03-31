@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import ru.shark.home.l2info.dao.common.PageableList;
+import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.enums.Grade;
 import ru.shark.home.l2info.enums.WeaponType;
@@ -29,10 +29,10 @@ public class WeaponDaoTest extends DaoServiceTest {
     @Test
     public void getWithPagination() {
         // WHEN
-        PageableList<WeaponEntity> list = weaponDao.getWithPagination(PageRequest.of(0, 1));
+        PageableList<WeaponEntity> list = weaponDao.getWithPagination(new RequestCriteria(0, 10));
 
         // THEN
-        checkPagingList(list, 1, 2L);
+        checkPagingList(list, 2, 2L);
     }
 
     @Test

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
 import ru.shark.home.l2info.dao.common.PageableList;
+import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.datamanager.WeaponDataManager;
 import ru.shark.home.l2info.services.dto.PageRequest;
@@ -37,14 +38,14 @@ public class WeaponServiceTest extends BaseServiceTest {
         // GIVEN
         PageRequest request = new PageRequest(0, 10);
         PageableList<WeaponDto> pageList = new PageableList<>(Arrays.asList(new WeaponDto()), 1L);
-        when(weaponDataManager.getWithPagination(any(Pageable.class))).thenReturn(pageList);
+        when(weaponDataManager.getWithPagination(any(RequestCriteria.class))).thenReturn(pageList);
 
         // WHEN
         BaseResponse response = weaponService.getList(request);
 
         // THEN
         checkPagingResponse(response);
-        verify(weaponDataManager, times(1)).getWithPagination(any(Pageable.class));
+        verify(weaponDataManager, times(1)).getWithPagination(any(RequestCriteria.class));
     }
 
     @Test

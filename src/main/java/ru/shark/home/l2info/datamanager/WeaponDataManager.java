@@ -1,8 +1,8 @@
 package ru.shark.home.l2info.datamanager;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import ru.shark.home.l2info.dao.common.PageableList;
+import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.dao.service.BaseDao;
@@ -14,8 +14,8 @@ public class WeaponDataManager extends BaseDataManager<WeaponEntity, WeaponDto> 
         super(dao, WeaponDto.class);
     }
 
-    public PageableList<WeaponDto> getWithPagination(Pageable pageable) {
+    public PageableList<WeaponDto> getWithPagination(RequestCriteria request) {
         WeaponDao dao = (WeaponDao) getDao();
-        return getConverterUtil().entityListToDtoPageableList(dao.getWithPagination(pageable), WeaponDto.class);
+        return getConverterUtil().entityListToDtoPageableList(dao.getWithPagination(request), WeaponDto.class);
     }
 }

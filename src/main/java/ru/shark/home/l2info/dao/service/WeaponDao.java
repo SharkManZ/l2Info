@@ -1,11 +1,11 @@
 package ru.shark.home.l2info.dao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import ru.shark.home.l2info.dao.common.PageableList;
+import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
+import ru.shark.home.l2info.dao.repository.BaseRepository;
 import ru.shark.home.l2info.dao.repository.WeaponRepository;
 
 import java.text.MessageFormat;
@@ -20,10 +20,8 @@ public class WeaponDao extends BaseDao<WeaponEntity> {
         super(WeaponEntity.class);
     }
 
-    public PageableList<WeaponEntity> getWithPagination(Pageable pageable) {
-        Page<WeaponEntity> list = weaponRepository.findAll(pageable);
-
-        return new PageableList<>(list.getContent(), list.getTotalElements());
+    public PageableList<WeaponEntity> getWithPagination(RequestCriteria request) {
+        return super.getWithPagination(request);
     }
 
     @Override
@@ -49,8 +47,13 @@ public class WeaponDao extends BaseDao<WeaponEntity> {
             throw new IllegalArgumentException(MessageFormat.format(ENTITY_NOT_FOUND_BY_ID,
                     WeaponEntity.getDescription(), id));
         }
-        
+
         super.deleteById(id);
+    }
+
+    @Override
+    public BaseRepository getRepository() {
+        return weaponRepository;
     }
 
     @Autowired

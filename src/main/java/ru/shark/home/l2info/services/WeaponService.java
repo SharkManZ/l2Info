@@ -10,15 +10,14 @@ import ru.shark.home.l2info.services.dto.response.BaseResponse;
 import static ru.shark.home.l2info.common.ErrorConstants.ERR_500;
 
 @Component
-public class WeaponService {
+public class WeaponService extends BaseService {
     private WeaponDataManager weaponDataManager;
 
     public BaseResponse getList(PageRequest request) {
         BaseResponse response;
         try {
             response = new BaseResponse<>();
-            response.setBody(weaponDataManager.getWithPagination(org.springframework.data.domain.PageRequest.of(request.getPage(),
-                    request.getSize())));
+            response.setBody(weaponDataManager.getWithPagination(getCriteria(request)));
             response.setSuccess(true);
 
         } catch (Exception e) {

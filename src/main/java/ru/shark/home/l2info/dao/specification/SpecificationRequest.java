@@ -1,6 +1,7 @@
 package ru.shark.home.l2info.dao.specification;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.ReflectionUtils;
 import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.common.RequestFilter;
 
@@ -8,12 +9,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.lang.reflect.Field;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
-import static ru.shark.home.l2info.common.ErrorConstants.INVALID_FILTER_OPERATION;
+import static ru.shark.home.l2info.common.ErrorConstants.*;
 
 public class SpecificationRequest implements Specification {
     private List<RequestFilter> filters;
@@ -51,7 +53,37 @@ public class SpecificationRequest implements Specification {
         if (root.get(filter.getField()).getJavaType() == String.class) {
             return criteriaBuilder.equal(criteriaBuilder.lower(root.get(filter.getField())),
                     filter.getValue().toLowerCase());
+        } else {
+            return criteriaBuilder.equal(root.get(filter.getField()), getValue(filter, root));
         }
-        return null;
+    }
+
+    protected Object getValue(RequestFilter filter, Root root) {
+        switch (filter.getFieldType()) {
+            case STRING:
+                return filter.getValue();
+            case INTEGER:
+                try {
+                    return Long.parseLong(filter.getValue());
+                } catch (NumberFormatException ex) {
+                    throw new IllegalArgumentException(MessageFormat.format(INVALID_NUMBER_FILTER_VALUE, filter.getValue()));
+                }
+            case ENUM:
+                return getEnumValue(filter.getField(), root, filter.getValue());
+            default:
+                throw new IllegalArgumentException(MessageFormat.format(UNSUPPORTED_FILTER_FIELD_TYPE,
+                        filter.getFieldType().name()));
+        }
+    }
+
+    protected Object getEnumValue(String field, Root root, String source) {
+        Class entityClass = root.getJavaType();
+        Field filterField = ReflectionUtils.findField(entityClass, field);
+        if (filterField == null) {
+            throw new IllegalArgumentException(MessageFormat.format(UNKNOWN_FILTER_FIELD, field));
+        }
+
+        Class<? extends Enum> type = (Class<? extends Enum>) filterField.getType();
+        return Enum.valueOf(type, source);
     }
 }

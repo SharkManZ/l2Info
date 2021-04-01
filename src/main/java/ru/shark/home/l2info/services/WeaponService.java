@@ -10,14 +10,14 @@ import ru.shark.home.l2info.services.dto.response.BaseResponse;
 import static ru.shark.home.l2info.common.ErrorConstants.ERR_500;
 
 @Component
-public class WeaponService extends BaseService {
+public class WeaponService extends BaseLogicService {
     private WeaponDataManager weaponDataManager;
 
     public BaseResponse getList(PageRequest request) {
         BaseResponse response;
         try {
             response = new BaseResponse<>();
-            response.setBody(weaponDataManager.getWithPagination(getCriteria(request)));
+            response.setBody(weaponDataManager.getWithPagination(getCriteria(request, WeaponDto.class)));
             response.setSuccess(true);
 
         } catch (Exception e) {

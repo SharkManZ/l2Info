@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import ru.shark.home.l2info.dao.common.PageableList;
 import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
-import ru.shark.home.l2info.dao.repository.BaseRepository;
 import ru.shark.home.l2info.dao.repository.WeaponRepository;
 
 import java.text.MessageFormat;
@@ -21,7 +20,7 @@ public class WeaponDao extends BaseDao<WeaponEntity> {
     }
 
     public PageableList<WeaponEntity> getWithPagination(RequestCriteria request) {
-        return super.getWithPagination(request);
+        return weaponRepository.getWithPagination(request);
     }
 
     @Override
@@ -49,11 +48,6 @@ public class WeaponDao extends BaseDao<WeaponEntity> {
         }
 
         super.deleteById(id);
-    }
-
-    @Override
-    public BaseRepository getRepository() {
-        return weaponRepository;
     }
 
     @Autowired

@@ -12,5 +12,12 @@
     "grade": "D",
     "pAtk": "179",
     "mAtk": "51"
+  },
+  {
+    "name": "Sword of Miracle",
+    "type": "SWORD",
+    "grade": "A",
+    "pAtk": "186",
+    "mAtk": "152"
   }
 ]

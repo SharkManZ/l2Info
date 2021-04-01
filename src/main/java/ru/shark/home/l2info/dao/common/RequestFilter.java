@@ -1,5 +1,6 @@
 package ru.shark.home.l2info.dao.common;
 
+import ru.shark.home.l2info.enums.FieldType;
 import ru.shark.home.l2info.enums.FilterOperation;
 
 import java.text.MessageFormat;
@@ -9,10 +10,12 @@ import static ru.shark.home.l2info.common.ErrorConstants.INVALID_FILTER_OPERATIO
 public class RequestFilter {
     private String field;
     private FilterOperation operation;
+    private FieldType fieldType;
     private String value;
 
-    public RequestFilter(String field, String operation, String value) {
+    public RequestFilter(String field, FieldType fieldType, String operation, String value) {
         this.field = field;
+        this.fieldType = fieldType;
         this.operation = FilterOperation.byValue(operation);
         if (this.operation == null) {
             throw new IllegalArgumentException(MessageFormat.format(INVALID_FILTER_OPERATION, operation));
@@ -42,5 +45,13 @@ public class RequestFilter {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public FieldType getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(FieldType fieldType) {
+        this.fieldType = fieldType;
     }
 }

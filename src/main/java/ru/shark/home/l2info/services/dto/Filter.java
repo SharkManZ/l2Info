@@ -5,6 +5,16 @@ public class Filter {
     private String operator;
     private String value;
 
+    public Filter() {
+
+    }
+
+    public Filter(String field, String operator, String value) {
+        this.field = field;
+        this.operator = operator;
+        this.value = value;
+    }
+
     public String getField() {
         return field;
     }

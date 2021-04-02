@@ -6,6 +6,8 @@ public class PageRequest {
     private int page;
     private int size;
     private List<Filter> filters;
+    private String search;
+    private List<Sort> sorts;
 
     public PageRequest() {
         // empty constructor
@@ -38,5 +40,21 @@ public class PageRequest {
 
     public void setFilters(List<Filter> filters) {
         this.filters = filters;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public List<Sort> getSorts() {
+        return sorts;
+    }
+
+    public void setSorts(List<Sort> sorts) {
+        this.sorts = sorts;
     }
 }

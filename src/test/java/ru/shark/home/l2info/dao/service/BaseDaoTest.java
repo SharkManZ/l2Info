@@ -1,21 +1,25 @@
 package ru.shark.home.l2info.dao.service;
 
+import com.google.common.collect.Ordering;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import ru.shark.home.l2info.dao.common.PageableList;
 import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.common.RequestFilter;
+import ru.shark.home.l2info.dao.common.RequestSort;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.dao.repository.BaseRepository;
 import ru.shark.home.l2info.dao.repository.WeaponRepository;
-import ru.shark.home.l2info.enums.FieldType;
-import ru.shark.home.l2info.enums.FilterOperation;
-import ru.shark.home.l2info.enums.Grade;
-import ru.shark.home.l2info.enums.WeaponType;
+import ru.shark.home.l2info.dao.util.SpecificationUtils;
+import ru.shark.home.l2info.enums.*;
 import ru.shark.home.l2info.util.DaoServiceTest;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -104,7 +108,7 @@ public class BaseDaoTest extends DaoServiceTest {
         PageableList withPagination = baseDao.getRepository().getWithPagination(requestCriteria);
 
         // THEN
-        checkPagingList(withPagination, 2, 2L);
+        checkPagingList(withPagination, 3, 3L);
     }
 
     @Test
@@ -129,6 +133,103 @@ public class BaseDaoTest extends DaoServiceTest {
         checkPagingList(responseStringEquals, 1, 1L);
         checkPagingList(responseIntegerEquals, 1, 1L);
         checkPagingList(responseEnumEquals, 1, 1L);
+    }
+
+    @Test
+    public void getWithPaginationWithSearch() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+        requestCriteria.setSearch("peril");
+        Specification searchSpec = SpecificationUtils.searchSpecification("peril", "name");
+
+        // WHEN
+        PageableList withPagination = baseDao.getRepository().getWithPagination(requestCriteria, searchSpec);
+
+        // THEN
+        checkPagingList(withPagination, 1, 1L);
+    }
+
+    @Test
+    public void getWithPaginationWithSort() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+        requestCriteria.setSorts(Arrays.asList(new RequestSort("name", SortDirection.ASC.name())));
+        Ordering<WeaponEntity> ordering = new Ordering<WeaponEntity>() {
+            @Override
+            public int compare(@Nullable WeaponEntity weaponEntity, @Nullable WeaponEntity t1) {
+                return weaponEntity.getName().compareTo(t1.getName());
+            }
+        };
+
+        // WHEN
+        PageableList withPagination = baseDao.getRepository().getWithPagination(requestCriteria);
+
+        // THEN
+        checkPagingList(withPagination, 3, 3L);
+        List<WeaponEntity> data = withPagination.getData();
+        Assertions.assertTrue(ordering.isOrdered(data));
+    }
+
+    @Test
+    public void getWithPaginationWithSortDest() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+        requestCriteria.setSorts(Arrays.asList(new RequestSort("type", SortDirection.DESC.name())));
+        Ordering<WeaponEntity> ordering = new Ordering<WeaponEntity>() {
+            @Override
+            public int compare(@Nullable WeaponEntity weaponEntity, @Nullable WeaponEntity t1) {
+                return weaponEntity.getType().name().compareTo(t1.getType().name());
+            }
+        };
+
+        // WHEN
+        PageableList withPagination = baseDao.getRepository().getWithPagination(requestCriteria);
+
+        // THEN
+        checkPagingList(withPagination, 3, 3L);
+        List<WeaponEntity> data = withPagination.getData();
+        Assertions.assertTrue(ordering.reverse().isOrdered(data));
+    }
+
+    @Test
+    public void getWithPaginationWithDefaultSort() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+        Ordering<WeaponEntity> ordering = new Ordering<WeaponEntity>() {
+            @Override
+            public int compare(@Nullable WeaponEntity weaponEntity, @Nullable WeaponEntity t1) {
+                return weaponEntity.getName().compareTo(t1.getName());
+            }
+        };
+
+        // WHEN
+        PageableList withPagination = baseDao.getRepository().getWithPagination(requestCriteria, null, "name");
+
+        // THEN
+        checkPagingList(withPagination, 3, 3L);
+        List<WeaponEntity> data = withPagination.getData();
+        Assertions.assertTrue(ordering.isOrdered(data));
+    }
+
+    @Test
+    public void getWithPaginationWithDefaultSortDesc() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+        Ordering<WeaponEntity> ordering = new Ordering<WeaponEntity>() {
+            @Override
+            public int compare(@Nullable WeaponEntity weaponEntity, @Nullable WeaponEntity t1) {
+                return weaponEntity.getGrade().name().compareTo(t1.getGrade().name());
+            }
+        };
+
+        // WHEN
+        PageableList withPagination = baseDao.getRepository().getWithPagination(requestCriteria, null,
+                "grade DESC");
+
+        // THEN
+        checkPagingList(withPagination, 3, 3L);
+        List<WeaponEntity> data = withPagination.getData();
+        Assertions.assertTrue(ordering.reverse().isOrdered(data));
     }
 
     private WeaponEntity prepareEntity(Long id, String name) {

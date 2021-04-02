@@ -1,5 +1,7 @@
 package ru.shark.home.l2info.dao.service;
 
+import com.google.common.collect.Ordering;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -28,12 +30,35 @@ public class WeaponDaoTest extends DaoServiceTest {
 
     @Test
     public void getWithPagination() {
+        // GIVEN
+        Ordering<WeaponEntity> ordering = new Ordering<WeaponEntity>() {
+            @Override
+            public int compare(@Nullable WeaponEntity weaponEntity, @Nullable WeaponEntity t1) {
+                return weaponEntity.getName().compareTo(t1.getName());
+            }
+        };
+
         // WHEN
         PageableList<WeaponEntity> list = weaponDao.getWithPagination(new RequestCriteria(0, 10));
 
         // THEN
         checkPagingList(list, 2, 2L);
+        assertTrue(ordering.isOrdered(list.getData()));
     }
+
+    @Test
+    public void getWithPaginationWithSearch() {
+        // GIVEN
+        RequestCriteria requestCriteria = new RequestCriteria(0, 10);
+        requestCriteria.setSearch("long");
+
+        // WHEN
+        PageableList<WeaponEntity> list = weaponDao.getWithPagination(requestCriteria);
+
+        // THEN
+        checkPagingList(list, 1, 1L);
+    }
+
 
     @Test
     public void saveWithCreate() {

@@ -3,6 +3,7 @@ package ru.shark.home.l2info.services;
 import org.springframework.util.ReflectionUtils;
 import ru.shark.home.l2info.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.common.RequestFilter;
+import ru.shark.home.l2info.dao.common.RequestSort;
 import ru.shark.home.l2info.enums.FieldType;
 import ru.shark.home.l2info.services.dto.PageRequest;
 
@@ -17,9 +18,18 @@ public class BaseLogicService {
 
     protected RequestCriteria getCriteria(PageRequest request, Class dtoClass) {
         RequestCriteria criteria = new RequestCriteria(request.getPage(), request.getSize());
+        criteria.setSearch(request.getSearch());
         if (!isEmpty(request.getFilters())) {
-            criteria.setFilters(request.getFilters().stream().map(item -> new RequestFilter(item.getField(),
-                    getFieldType(dtoClass, item.getField()), item.getOperator(), item.getValue())).collect(Collectors.toList()));
+            criteria.setFilters(request.getFilters().stream()
+                    .map(item -> new RequestFilter(item.getField(),
+                            getFieldType(dtoClass, item.getField()), item.getOperator(), item.getValue()))
+                    .collect(Collectors.toList()));
+        }
+
+        if (!isEmpty(request.getSorts())) {
+            criteria.setSorts(request.getSorts().stream()
+                    .map(item -> new RequestSort(item.getField(), item.getDirection()))
+                    .collect(Collectors.toList()));
         }
 
         return criteria;

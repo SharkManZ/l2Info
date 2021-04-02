@@ -1,11 +1,14 @@
 package ru.shark.home.l2info.dao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import ru.shark.home.l2info.dao.common.PageableList;
 import ru.shark.home.l2info.dao.common.RequestCriteria;
+import ru.shark.home.l2info.dao.entity.BaseEntity;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.dao.repository.WeaponRepository;
+import ru.shark.home.l2info.dao.util.SpecificationUtils;
 
 import java.text.MessageFormat;
 
@@ -13,6 +16,8 @@ import static ru.shark.home.l2info.common.ErrorConstants.*;
 
 @Component
 public class WeaponDao extends BaseDao<WeaponEntity> {
+    private static final String NAME_FIELD = "name";
+
     private WeaponRepository weaponRepository;
 
     protected WeaponDao() {
@@ -20,7 +25,8 @@ public class WeaponDao extends BaseDao<WeaponEntity> {
     }
 
     public PageableList<WeaponEntity> getWithPagination(RequestCriteria request) {
-        return weaponRepository.getWithPagination(request);
+        Specification<BaseEntity> searchSpec = SpecificationUtils.searchSpecification(request.getSearch(), NAME_FIELD);
+        return weaponRepository.getWithPagination(request, searchSpec, NAME_FIELD);
     }
 
     @Override

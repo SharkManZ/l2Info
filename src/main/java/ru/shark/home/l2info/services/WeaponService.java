@@ -11,6 +11,7 @@ import static ru.shark.home.l2info.common.ErrorConstants.ERR_500;
 
 @Component
 public class WeaponService extends BaseLogicService {
+
     private WeaponDataManager weaponDataManager;
 
     public BaseResponse getList(PageRequest request) {

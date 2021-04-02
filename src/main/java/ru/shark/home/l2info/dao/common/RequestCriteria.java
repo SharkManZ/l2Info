@@ -6,6 +6,8 @@ public class RequestCriteria {
     private int page;
     private int size;
     private List<RequestFilter> filters;
+    private String search;
+    private List<RequestSort> sorts;
 
     public RequestCriteria(int page, int size) {
         this.page = page;
@@ -34,5 +36,21 @@ public class RequestCriteria {
 
     public void setFilters(List<RequestFilter> filters) {
         this.filters = filters;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public List<RequestSort> getSorts() {
+        return sorts;
+    }
+
+    public void setSorts(List<RequestSort> sorts) {
+        this.sorts = sorts;
     }
 }

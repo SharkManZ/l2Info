@@ -1,7 +1,8 @@
 package ru.shark.home.l2info.enums;
 
 public enum FilterOperation {
-    EQ("=");
+    EQ("="),
+    LIKE("~");
     private String value;
 
     FilterOperation(String value) {

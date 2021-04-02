@@ -123,16 +123,25 @@ public class BaseDaoTest extends DaoServiceTest {
         RequestCriteria requestEnumEquals = new RequestCriteria(0, 10);
         requestEnumEquals.setFilters(Arrays.asList(new RequestFilter("type", FieldType.ENUM, FilterOperation.EQ.getValue(),
                 "SWORD")));
+        RequestCriteria requestStringLike = new RequestCriteria(0, 10);
+        requestStringLike.setFilters(Arrays.asList(new RequestFilter("name", FieldType.STRING, FilterOperation.LIKE.getValue(),
+                "long")));
 
         // WHEN
-        PageableList responseStringEquals = baseDao.getRepository().getWithPagination(requestStringEquals);
-        PageableList responseIntegerEquals = baseDao.getRepository().getWithPagination(requestIntegerEquals);
-        PageableList responseEnumEquals = baseDao.getRepository().getWithPagination(requestEnumEquals);
+        PageableList<WeaponEntity> responseStringEquals = baseDao.getRepository().getWithPagination(requestStringEquals);
+        PageableList<WeaponEntity> responseIntegerEquals = baseDao.getRepository().getWithPagination(requestIntegerEquals);
+        PageableList<WeaponEntity> responseEnumEquals = baseDao.getRepository().getWithPagination(requestEnumEquals);
+        PageableList<WeaponEntity> responseStringLike = baseDao.getRepository().getWithPagination(requestStringLike);
 
         // THEN
         checkPagingList(responseStringEquals, 1, 1L);
+        assertEquals("Bow of Peril", responseStringEquals.getData().get(0).getName());
         checkPagingList(responseIntegerEquals, 1, 1L);
+        assertEquals("Strengthened Long Bow", responseIntegerEquals.getData().get(0).getName());
         checkPagingList(responseEnumEquals, 1, 1L);
+        assertEquals("Sword of Miracle", responseEnumEquals.getData().get(0).getName());
+        checkPagingList(responseStringLike, 1, 1L);
+        assertEquals("Strengthened Long Bow", responseStringLike.getData().get(0).getName());
     }
 
     @Test

@@ -1,6 +1,5 @@
 package ru.shark.home.l2info.dao.util;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ObjectUtils;
 import ru.shark.home.l2info.dao.entity.BaseEntity;
@@ -8,7 +7,6 @@ import ru.shark.home.l2info.dao.entity.BaseEntity;
 import javax.persistence.criteria.*;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class SpecificationUtils {
     public static <T extends BaseEntity> Specification<T> andSpecifications(final Specification<T>... specifications) {

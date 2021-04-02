@@ -43,6 +43,8 @@ public class SpecificationRequest implements Specification {
         switch (filter.getOperation()) {
             case EQ:
                 return buildEqualsPredicate(filter, root, criteriaBuilder);
+            case LIKE:
+                return buildLikePredicate(filter, root, criteriaBuilder);
             default:
                 throw new IllegalArgumentException(MessageFormat.format(INVALID_FILTER_OPERATION,
                         filter.getOperation().getValue()));
@@ -56,6 +58,11 @@ public class SpecificationRequest implements Specification {
         } else {
             return criteriaBuilder.equal(root.get(filter.getField()), getValue(filter, root));
         }
+    }
+
+    private Predicate buildLikePredicate(RequestFilter filter, Root root, CriteriaBuilder criteriaBuilder) {
+        return criteriaBuilder.like(criteriaBuilder.lower(root.get(filter.getField())),
+                "%" + filter.getValue().toLowerCase() + "%");
     }
 
     protected Object getValue(RequestFilter filter, Root root) {

@@ -1,0 +1,2 @@
+-- запуск PG в докере с портом и волюмом
+docker run --rm --name local-postgre -v f:\Db\pg:/var/lib/postgresql/data -p 5432:5432 -e POSTGRES_PASSWORD=123 -d postgres

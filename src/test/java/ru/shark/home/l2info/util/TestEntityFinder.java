@@ -2,6 +2,7 @@ package ru.shark.home.l2info.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.shark.home.l2info.dao.entity.RaceEntity;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,12 @@ public class TestEntityFinder {
 
     public WeaponEntity findWeapon(String name) {
         return (WeaponEntity) em.createQuery("select w from WeaponEntity w where lower(w.name ) = lower(:name)")
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
+    public RaceEntity findRace(String name) {
+        return (RaceEntity) em.createQuery("select r from RaceEntity r where lower(r.name ) = lower(:name)")
                 .setParameter("name", name)
                 .getSingleResult();
     }

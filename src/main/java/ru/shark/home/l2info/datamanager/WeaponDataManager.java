@@ -10,7 +10,7 @@ import ru.shark.home.l2info.dao.service.WeaponDao;
 
 @Component
 public class WeaponDataManager extends BaseDataManager<WeaponEntity, WeaponDto> {
-    public WeaponDataManager(BaseDao dao) {
+    public WeaponDataManager(WeaponDao dao) {
         super(dao, WeaponDto.class);
     }
 

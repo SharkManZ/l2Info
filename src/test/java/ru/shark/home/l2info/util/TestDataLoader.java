@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.shark.home.l2info.dao.entity.RaceEntity;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
+import ru.shark.home.l2info.dao.repository.RaceRepository;
 import ru.shark.home.l2info.dao.repository.WeaponRepository;
 
 import javax.persistence.EntityManager;
@@ -22,7 +24,8 @@ import java.util.List;
 public class TestDataLoader {
     private static final ObjectMapper mapper = new JsonMapper();
     private static final List<String> cleanUpLst = Arrays.asList(
-            "L2_WEAPON"
+            "L2_WEAPON",
+            "L2_RACE"
     );
 
     @Autowired
@@ -30,6 +33,9 @@ public class TestDataLoader {
 
     @Autowired
     private WeaponRepository weaponRepository;
+
+    @Autowired
+    private RaceRepository raceRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -57,6 +63,28 @@ public class TestDataLoader {
         }
     }
 
+    /**
+     * Загружает файлы с данными для тестов.
+     *
+     * @param files массив
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void loadRace(String... files) {
+        for (String file : files) {
+            try {
+                File fl = new File(this.getClass().getResource("/testData/" + file).toURI());
+                List<RaceEntity> list = mapper.readValue(fl, new TypeReference<List<RaceEntity>>() {
+                });
+                list.forEach(entity -> {
+                    raceRepository.save(entity);
+                });
+            } catch (URISyntaxException e) {
+                System.out.println("missing file: " + "/json/" + file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * Удаляет все данные из определенного списка таблиц

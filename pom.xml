@@ -21,6 +21,7 @@
         <dozer.version>5.5.1</dozer.version>
         <apache.commons.collections.version>4.4</apache.commons.collections.version>
         <google.guava.version>30.1.1-jre</google.guava.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>

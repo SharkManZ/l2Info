@@ -1,6 +1,5 @@
 package ru.shark.home.l2info.datamanager;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class WeaponDataManagerTest extends DaoServiceTest {
 
     @BeforeAll
     public void init() {
-        loadWeapons("BaseDataManagerTest/weapons.json");
+        loadWeapons("WeaponDataManagerTest/weapons.json");
     }
 
     @Test
@@ -32,6 +31,7 @@ public class WeaponDataManagerTest extends DaoServiceTest {
         // THEN
         assertNotNull(dto);
         assertEquals(entity.getId(), dto.getId());
+        assertEquals(entity.getName(), dto.getName());
         assertEquals(entity.getType(), dto.getType());
         assertEquals(entity.getGrade(), dto.getGrade());
         assertEquals(entity.getpAtk(), dto.getpAtk());

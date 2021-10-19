@@ -6,4 +6,8 @@
     <named-query name="findWeaponByName">
         <query>select w from WeaponEntity w where lower(w.name) = lower(:name)</query>
     </named-query>
+
+    <named-query name="findRaceByName">
+        <query>select r from RaceEntity r where lower(r.name) = lower(:name)</query>
+    </named-query>
 </entity-mappings>

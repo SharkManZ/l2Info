@@ -11,7 +11,7 @@ public class RequestSort {
     public RequestSort(String field, String direction) {
         this.field = field;
         if (!isBlank(direction)) {
-            this.direction = SortDirection.valueOf(direction);
+            this.direction = SortDirection.valueOf(direction.toUpperCase());
         }
     }
 

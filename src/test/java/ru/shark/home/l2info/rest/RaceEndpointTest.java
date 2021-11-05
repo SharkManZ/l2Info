@@ -3,11 +3,9 @@ package ru.shark.home.l2info.rest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.shark.home.common.services.dto.PageRequest;
 import ru.shark.home.l2info.dao.dto.RaceDto;
-import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.services.RaceService;
-import ru.shark.home.l2info.services.WeaponService;
-import ru.shark.home.l2info.services.dto.PageRequest;
 import ru.shark.home.l2info.util.BaseEndpointTest;
 
 import javax.ws.rs.core.Response;

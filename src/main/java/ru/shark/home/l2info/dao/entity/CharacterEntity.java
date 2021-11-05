@@ -1,5 +1,7 @@
 package ru.shark.home.l2info.dao.entity;
 
+import ru.shark.home.common.dao.entity.BaseEntity;
+
 import javax.persistence.*;
 
 /**

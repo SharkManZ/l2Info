@@ -2,12 +2,13 @@ package ru.shark.home.l2info.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.shark.home.common.services.BaseLogicService;
+import ru.shark.home.common.services.dto.PageRequest;
+import ru.shark.home.common.services.dto.response.BaseResponse;
 import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.datamanager.WeaponDataManager;
-import ru.shark.home.l2info.services.dto.PageRequest;
-import ru.shark.home.l2info.services.dto.response.BaseResponse;
 
-import static ru.shark.home.l2info.common.ErrorConstants.ERR_500;
+import static ru.shark.home.common.common.ErrorConstants.ERR_500;
 
 @Component
 public class WeaponService extends BaseLogicService {

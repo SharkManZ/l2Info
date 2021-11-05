@@ -61,6 +61,11 @@
 
         <!-- UTIL -->
         <dependency>
+            <groupId>ru.shark.home.common</groupId>
+            <artifactId>java-common</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
             <version>${dozer.version}</version>

@@ -2,8 +2,8 @@ package ru.shark.home.l2info.util;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
-import ru.shark.home.l2info.dao.common.PageableList;
-import ru.shark.home.l2info.services.dto.response.BaseResponse;
+import ru.shark.home.common.dao.common.PageableList;
+import ru.shark.home.common.services.dto.response.BaseResponse;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseServiceTest {

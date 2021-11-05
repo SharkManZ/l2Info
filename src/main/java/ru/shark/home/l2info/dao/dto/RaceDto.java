@@ -1,5 +1,7 @@
 package ru.shark.home.l2info.dao.dto;
 
+import ru.shark.home.common.dao.dto.BaseDto;
+
 public class RaceDto extends BaseDto {
     private String name;
 

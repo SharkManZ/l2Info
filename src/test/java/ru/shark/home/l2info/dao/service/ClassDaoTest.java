@@ -7,8 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import ru.shark.home.l2info.dao.common.PageableList;
-import ru.shark.home.l2info.dao.common.RequestCriteria;
+import ru.shark.home.common.dao.common.PageableList;
+import ru.shark.home.common.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.entity.ClassEntity;
 import ru.shark.home.l2info.dao.entity.RaceEntity;
 import ru.shark.home.l2info.enums.ClassType;
@@ -18,7 +18,7 @@ import java.text.MessageFormat;
 import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.shark.home.l2info.common.ErrorConstants.*;
+import static ru.shark.home.common.common.ErrorConstants.*;
 
 public class ClassDaoTest extends DaoServiceTest {
 

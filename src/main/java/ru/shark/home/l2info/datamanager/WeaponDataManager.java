@@ -1,11 +1,11 @@
 package ru.shark.home.l2info.datamanager;
 
 import org.springframework.stereotype.Component;
-import ru.shark.home.l2info.dao.common.PageableList;
-import ru.shark.home.l2info.dao.common.RequestCriteria;
+import ru.shark.home.common.dao.common.PageableList;
+import ru.shark.home.common.dao.common.RequestCriteria;
+import ru.shark.home.common.datamanager.BaseDataManager;
 import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
-import ru.shark.home.l2info.dao.service.BaseDao;
 import ru.shark.home.l2info.dao.service.WeaponDao;
 
 @Component

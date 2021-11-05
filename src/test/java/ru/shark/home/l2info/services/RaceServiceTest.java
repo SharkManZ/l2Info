@@ -3,14 +3,12 @@ package ru.shark.home.l2info.services;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.shark.home.l2info.dao.common.PageableList;
-import ru.shark.home.l2info.dao.common.RequestCriteria;
+import ru.shark.home.common.dao.common.PageableList;
+import ru.shark.home.common.dao.common.RequestCriteria;
+import ru.shark.home.common.services.dto.PageRequest;
+import ru.shark.home.common.services.dto.response.BaseResponse;
 import ru.shark.home.l2info.dao.dto.RaceDto;
-import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.datamanager.RaceDataManager;
-import ru.shark.home.l2info.datamanager.WeaponDataManager;
-import ru.shark.home.l2info.services.dto.PageRequest;
-import ru.shark.home.l2info.services.dto.response.BaseResponse;
 import ru.shark.home.l2info.util.BaseServiceTest;
 
 import java.util.Arrays;

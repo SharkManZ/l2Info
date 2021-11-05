@@ -3,17 +3,17 @@ package ru.shark.home.l2info.dao.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-import ru.shark.home.l2info.dao.common.PageableList;
-import ru.shark.home.l2info.dao.common.RequestCriteria;
-import ru.shark.home.l2info.dao.entity.BaseEntity;
+import ru.shark.home.common.dao.common.PageableList;
+import ru.shark.home.common.dao.common.RequestCriteria;
+import ru.shark.home.common.dao.entity.BaseEntity;
+import ru.shark.home.common.dao.service.BaseDao;
+import ru.shark.home.common.dao.util.SpecificationUtils;
 import ru.shark.home.l2info.dao.entity.RaceEntity;
-import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.dao.repository.RaceRepository;
-import ru.shark.home.l2info.dao.util.SpecificationUtils;
 
 import java.text.MessageFormat;
 
-import static ru.shark.home.l2info.common.ErrorConstants.*;
+import static ru.shark.home.common.common.ErrorConstants.*;
 
 @Component
 public class RaceDao extends BaseDao<RaceEntity> {

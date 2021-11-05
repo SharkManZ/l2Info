@@ -2,9 +2,9 @@ package ru.shark.home.l2info.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.shark.home.common.services.dto.PageRequest;
 import ru.shark.home.l2info.dao.dto.RaceDto;
 import ru.shark.home.l2info.services.RaceService;
-import ru.shark.home.l2info.services.dto.PageRequest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;

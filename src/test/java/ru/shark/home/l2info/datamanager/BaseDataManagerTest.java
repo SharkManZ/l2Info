@@ -1,17 +1,17 @@
 package ru.shark.home.l2info.datamanager;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.shark.home.common.dao.service.BaseDao;
+import ru.shark.home.common.dao.util.ConverterUtil;
+import ru.shark.home.common.datamanager.BaseDataManager;
 import ru.shark.home.l2info.dao.dto.WeaponDto;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
-import ru.shark.home.l2info.dao.service.BaseDao;
-import ru.shark.home.l2info.util.DaoServiceTest;
 import ru.shark.home.l2info.dao.service.WeaponDao;
-import ru.shark.home.l2info.dao.util.ConverterUtil;
 import ru.shark.home.l2info.enums.Grade;
 import ru.shark.home.l2info.enums.WeaponType;
+import ru.shark.home.l2info.util.DaoServiceTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 

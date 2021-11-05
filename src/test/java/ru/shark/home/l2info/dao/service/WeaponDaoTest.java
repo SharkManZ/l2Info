@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.shark.home.l2info.dao.common.PageableList;
-import ru.shark.home.l2info.dao.common.RequestCriteria;
+import ru.shark.home.common.dao.common.PageableList;
+import ru.shark.home.common.dao.common.RequestCriteria;
 import ru.shark.home.l2info.dao.entity.WeaponEntity;
 import ru.shark.home.l2info.enums.Grade;
 import ru.shark.home.l2info.enums.WeaponType;
@@ -16,7 +16,7 @@ import ru.shark.home.l2info.util.DaoServiceTest;
 import java.text.MessageFormat;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.shark.home.l2info.common.ErrorConstants.ENTITY_ALREADY_EXISTS;
+import static ru.shark.home.common.common.ErrorConstants.ENTITY_ALREADY_EXISTS;
 
 public class WeaponDaoTest extends DaoServiceTest {
 

@@ -1,5 +1,6 @@
 package ru.shark.home.l2info.dao.dto;
 
+import ru.shark.home.common.dao.dto.BaseDto;
 import ru.shark.home.l2info.enums.Grade;
 import ru.shark.home.l2info.enums.WeaponType;
 

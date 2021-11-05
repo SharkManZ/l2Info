@@ -7,10 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.shark.home.l2info.dao.common.PageableList;
-import ru.shark.home.l2info.dao.entity.BaseEntity;
-import ru.shark.home.l2info.util.TestDataLoader;
-import ru.shark.home.l2info.util.TestEntityFinder;
+import ru.shark.home.common.dao.common.PageableList;
+import ru.shark.home.common.dao.entity.BaseEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,16 +49,16 @@ public class DaoServiceTest {
 
     protected <E extends BaseEntity> boolean isDeleted(E entity) {
         Long count = (Long) em.createQuery("select count(e.id) from " + entity.getClass().getSimpleName() + " e " +
-                "where e.id = " +
-                entity.getId())
+                        "where e.id = " +
+                        entity.getId())
                 .getSingleResult();
         return count == 0;
     }
 
     protected <E extends BaseEntity> boolean isDeleted(Long id, Class<E> entityClass) {
         Long count = (Long) em.createQuery("select count(e.id) from " + entityClass.getSimpleName() + " e " +
-                "where e.id = " +
-                id)
+                        "where e.id = " +
+                        id)
                 .getSingleResult();
         return count == 0;
     }

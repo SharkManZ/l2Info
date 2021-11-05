@@ -1,5 +1,6 @@
 package ru.shark.home.l2info.util;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,13 +38,15 @@ public class DaoServiceTest {
     }
 
     protected void loadWeapons(String... files) {
-        testDataLoader.cleanUp();
         testDataLoader.loadWeapons(files);
     }
 
     protected void loadRace(String... files) {
-        testDataLoader.cleanUp();
         testDataLoader.loadRace(files);
+    }
+
+    protected void loadClass(String... files) {
+        testDataLoader.loadClass(files);
     }
 
     protected <E extends BaseEntity> boolean isDeleted(E entity) {
@@ -60,5 +63,10 @@ public class DaoServiceTest {
                 id)
                 .getSingleResult();
         return count == 0;
+    }
+
+    @AfterAll
+    public void cleanUp() {
+        testDataLoader.cleanUp();
     }
 }

@@ -5,27 +5,29 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.shark.home.l2info.dao.entity.ClassEntity;
 import ru.shark.home.l2info.dao.entity.RaceEntity;
 import ru.shark.home.l2info.util.DaoServiceTest;
 
-public class RaceRepositoryTest extends DaoServiceTest {
+public class ClassRepositoryTest extends DaoServiceTest {
     @Autowired
-    private RaceRepository raceRepository;
+    private ClassRepository classRepository;
 
     @BeforeAll
     public void init() {
-        loadRace("RaceRepositoryTest/race.json");
+        loadRace("ClassRepositoryTest/race.json");
+        loadClass("ClassRepositoryTest/class.json");
     }
 
     @Test
     public void findRaceByName() {
         // GIVEN
-        RaceEntity entity = entityFinder.findRace("Human");
+        ClassEntity entity = entityFinder.findClass("Warrior");
 
         // WHEN
-        RaceEntity raceByName = raceRepository.findRaceByName(entity.getName());
+        ClassEntity classByName = classRepository.findClassByName(entity.getName());
 
         // THEN
-        Assertions.assertTrue(new ReflectionEquals(entity).matches(raceByName));
+        Assertions.assertTrue(new ReflectionEquals(entity).matches(classByName));
     }
 }

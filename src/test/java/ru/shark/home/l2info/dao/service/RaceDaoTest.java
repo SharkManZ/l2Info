@@ -105,15 +105,15 @@ public class RaceDaoTest extends DaoServiceTest {
     }
 
     @Test
-    public void delete() {
+    public void deleteById() {
         // GIVEN
-        RaceEntity entity = entityFinder.findRace("Human");
+        Long id = entityFinder.findRaceId("Human");
 
         // WHEN
-        raceDao.delete(entity);
+        raceDao.deleteById(id);
 
         // THEN
-        assertTrue(isDeleted(entity));
+        assertTrue(isDeleted(id, RaceEntity.class));
     }
 
     private RaceEntity prepareNewEntity() {

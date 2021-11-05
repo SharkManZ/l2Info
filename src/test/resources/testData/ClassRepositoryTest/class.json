@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Fighter",
+    "type": "FIGHTER",
+    "race": "Human",
+    "level": 0
+  },
+  {
+    "id": 2,
+    "name": "Warrior",
+    "type": "FIGHTER",
+    "race": "Human",
+    "level": 1,
+    "parent": "Fighter"
+  }
+]

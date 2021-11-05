@@ -41,7 +41,7 @@ public class WeaponDataManagerTest extends DaoServiceTest {
     @Test
     public void save() {
         // GIVEN
-        WeaponDto dto = prepareDto(entityFinder.findWeapon("bow of peril").getId(), "bow of peril");
+        WeaponDto dto = prepareDto(entityFinder.findWeaponId("bow of peril"), "bow of peril");
 
         // WHEN
         WeaponDto saved = weaponDataManager.save(dto);
@@ -58,7 +58,7 @@ public class WeaponDataManagerTest extends DaoServiceTest {
     @Test
     public void deleteById() {
         // GIVEN
-        Long id = entityFinder.findWeapon("bow of peril").getId();
+        Long id = entityFinder.findWeaponId("bow of peril");
 
         // WHEN
         weaponDataManager.deleteById(id);

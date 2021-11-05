@@ -51,7 +51,7 @@ public class RaceDao extends BaseDao<RaceEntity> {
 
         if (entity == null) {
             throw new IllegalArgumentException(MessageFormat.format(ENTITY_NOT_FOUND_BY_ID,
-                    WeaponEntity.getDescription(), id));
+                    RaceEntity.getDescription(), id));
         }
 
         super.deleteById(id);

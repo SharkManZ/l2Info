@@ -35,7 +35,7 @@ public class RaceDataManagerTest extends DaoServiceTest {
     @Test
     public void save() {
         // GIVEN
-        RaceDto dto = prepareDto(entityFinder.findRace("human").getId(), "human");
+        RaceDto dto = prepareDto(entityFinder.findRaceId("human"), "human");
 
         // WHEN
         RaceDto saved = raceDataManager.save(dto);
@@ -49,7 +49,7 @@ public class RaceDataManagerTest extends DaoServiceTest {
     @Test
     public void deleteById() {
         // GIVEN
-        Long id = entityFinder.findRace("human").getId();
+        Long id = entityFinder.findRaceId("human");
 
         // WHEN
         raceDataManager.deleteById(id);

@@ -24,6 +24,8 @@ public class WeaponRepositoryTest extends DaoServiceTest {
 
         // WHEN
         WeaponEntity weaponByName = weaponRepository.findWeaponByName(entity.getName());
+
+        // THEN
         Assertions.assertTrue(new ReflectionEquals(entity).matches(weaponByName));
     }
 }

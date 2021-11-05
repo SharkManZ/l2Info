@@ -10,4 +10,12 @@
     <named-query name="findRaceByName">
         <query>select r from RaceEntity r where lower(r.name) = lower(:name)</query>
     </named-query>
+
+    <named-query name="findClassByName">
+        <query>select c from ClassEntity c where lower(c.name) = lower(:name)</query>
+    </named-query>
+
+    <named-query name="findClassByParentId">
+        <query>select c from ClassEntity c where c.parent.id = :parentId</query>
+    </named-query>
 </entity-mappings>

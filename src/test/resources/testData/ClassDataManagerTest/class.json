@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Fighter",
+    "type": "FIGHTER",
+    "race": "Human",
+    "level": 0
+  },
+  {
+    "name": "Warrior",
+    "type": "FIGHTER",
+    "race": "Human",
+    "level": 1,
+    "parent": "Fighter"
+  },
+  {
+    "name": "Elven Fighter",
+    "type": "FIGHTER",
+    "race": "Elf",
+    "level": 0
+  },
+  {
+    "name": "Elven Knight",
+    "type": "FIGHTER",
+    "race": "Elf",
+    "level": 1,
+    "parent": "Fighter"
+  }
+]

@@ -114,15 +114,15 @@ public class WeaponDaoTest extends DaoServiceTest {
     }
 
     @Test
-    public void delete() {
+    public void deleteById() {
         // GIVEN
-        WeaponEntity entity = entityFinder.findWeapon("Bow of Peril");
+        Long id = entityFinder.findWeaponId("Bow of Peril");
 
         // WHEN
-        weaponDao.delete(entity);
+        weaponDao.deleteById(id);
 
         // THEN
-        assertTrue(isDeleted(entity));
+        assertTrue(isDeleted(id, WeaponEntity.class));
     }
 
     private WeaponEntity prepareNewEntity() {
